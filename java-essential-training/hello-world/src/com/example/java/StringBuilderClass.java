@@ -1,11 +1,14 @@
 package com.example.java;
 
 import java.util.Scanner;
+import java.lang.StringBuilder;
+
 
 /**
  * Created by kevin on 01/01/16.
  */
-public class StringBuilder {
+
+public class StringBuilderClass {
 
 
   public static void main(String[] args){
@@ -14,7 +17,7 @@ public class StringBuilder {
     String s3 = s1 + " " + s2;
     System.out.println(s3);
 
-    java.lang.StringBuilder sb = new java.lang.StringBuilder("Hello");
+    StringBuilder sb = new StringBuilder("Hello");
     sb.append(", ")
       .append("World")
       .append("!");

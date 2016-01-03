@@ -10,8 +10,10 @@ public class Challenge1 {
   public static void main(String[] args){
     double userInput1,userInput2;
     Scanner scanner = new Scanner(System.in);
+
     System.out.print("Enter a numeric value: ");
     userInput1 = scanner.nextDouble();
+
     System.out.print("Enter a numeric value: ");
     userInput2 = scanner.nextDouble();
 
