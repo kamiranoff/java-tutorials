@@ -1,12 +1,17 @@
 package dev.game.tilegame;
 
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import dev.game.tilegame.display.Display;
+import dev.game.tilegame.gfx.Assets;
+import dev.game.tilegame.gfx.ImageLoader;
+import dev.game.tilegame.gfx.SpriteSheet;
 
 /**
  * Created by kevin on 03/01/16.
@@ -17,6 +22,7 @@ import dev.game.tilegame.display.Display;
 //implements Runnable allow the program to run on a thread
 public class Game implements Runnable {
 
+  final static Logger logger = LoggerFactory.getLogger(Game.class);
 
   private Display display;
 
@@ -34,6 +40,7 @@ public class Game implements Runnable {
   private BufferStrategy bs;
   private Graphics g;
 
+
   //constructor method
   public Game(String title, int width, int height){
 
@@ -47,6 +54,10 @@ public class Game implements Runnable {
   private void init(){
     //Create a display when we create a new instance of Game
     display = new Display(title,width,height);
+
+    //initialize assets
+    Assets.init();
+
   }
 
   //update everything
@@ -69,12 +80,14 @@ public class Game implements Runnable {
     //like a magical paint brush
     g = bs.getDrawGraphics();
 
-
+    //clear the screen
+    g.clearRect(0,0,width,height);
 
     //Draw Here
+    //order matters !
 
+    g.drawImage(Assets.dirt,10,10,null);
 
-    g.fillRect(0,0,width,height);//x,y,width,height
 
     //End drawing
 
@@ -99,6 +112,8 @@ public class Game implements Runnable {
 
   //start the thread
   public synchronized void start(){
+
+    logger.info("Starting the game");
 
     if(running){
       return;//stops everything if game already running
