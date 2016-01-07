@@ -12,6 +12,10 @@ import dev.game.tilegame.display.Display;
 import dev.game.tilegame.gfx.Assets;
 import dev.game.tilegame.gfx.ImageLoader;
 import dev.game.tilegame.gfx.SpriteSheet;
+import dev.game.tilegame.states.GameState;
+import dev.game.tilegame.states.MenuState;
+import dev.game.tilegame.states.SettingState;
+import dev.game.tilegame.states.State;
 
 /**
  * Created by kevin on 03/01/16.
@@ -40,6 +44,12 @@ public class Game implements Runnable {
   private BufferStrategy bs;
   private Graphics g;
 
+  //States
+  private State gameState;
+  private State menuState;
+  private State settingState;
+
+
 
   //constructor method
   public Game(String title, int width, int height){
@@ -58,11 +68,19 @@ public class Game implements Runnable {
     //initialize assets
     Assets.init();
 
+    gameState = new GameState();
+    menuState = new MenuState();
+    settingState = new SettingState();
+
+    State.setState(gameState);
   }
 
   //update everything
   private void tick(){
-
+    //if a state exists
+    if(State.getState() != null){
+     State.getState().tick();
+    }
   }
 
   //render everything
@@ -86,7 +104,10 @@ public class Game implements Runnable {
     //Draw Here
     //order matters !
 
-    g.drawImage(Assets.dirt,10,10,null);
+    //if a state exists
+    if(State.getState() != null){
+      State.getState().render(g);
+    }
 
 
     //End drawing
@@ -102,9 +123,36 @@ public class Game implements Runnable {
 
     init();
 
+    int fps = 60;//frames per second
+    double timePerTick = 1_000_000_000 / fps; //time in nano seconds
+    double delta = 0;
+    long now;
+    long lastTime = System.nanoTime(); //amount of time in nano seconds;
+    long timer = 0;
+    int ticks = 0;
+
+
     while (running){
-      tick();
-      render();
+      //make sure the game render the same in slow or fast computer
+      now = System.nanoTime(); //current time of computer
+      delta += (now -lastTime) / timePerTick; //amount of time since last now call divided by the max number of tick
+      timer += now -lastTime;
+      lastTime = now;
+
+
+      if(delta >= 1){
+        tick();//frames
+        render();
+        ticks++;
+        delta--;
+
+      }
+
+      if(timer >= 1_000_000_000){
+        logger.info("Ticks and Frames: " + ticks);
+        ticks = 0;
+        timer =0;
+      }
     }
 
     stop();

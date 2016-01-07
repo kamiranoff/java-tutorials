@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by kevin on 03/01/16.
- * Watching https://www.youtube.com/watch?v=w1aB5gc38C8&list=PLah6faXAgguMnTBs3JnEJY0shAc18XYQZ&index=10
- * Currently at : New Beginner 2D Game Programming - 10 - Game Loop Timer - 00:00
+ * Watching https://www.youtube.com/watch?v=MYVSIcVuDmM&list=PLah6faXAgguMnTBs3JnEJY0shAc18XYQZ&index=13
+ * Currently at : New Beginner 2D Game Programming - 13 - Player - 00:00
  */
 public class Launcher {
 

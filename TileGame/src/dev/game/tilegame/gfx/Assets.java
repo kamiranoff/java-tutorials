@@ -20,7 +20,7 @@ public class Assets {
 
     player = playerSheet.crop(PLAYER_START_X,PLAYER_START_Y,PLAYER_WIDTH,PLAYER_HEIGHT);
     grass = backgroundSheet.crop(BG_GAP, BG_GAP * 2 + BG_HEIGHT,BG_WIDTH,BG_HEIGHT);
-    dirt = backgroundSheet.crop(BG_GAP * 5 + BG_WIDTH *4 ,BG_GAP,BG_WIDTH,BG_HEIGHT);
+    dirt = backgroundSheet.crop(BG_GAP * 6 + BG_WIDTH * 4, BG_GAP,BG_WIDTH,BG_HEIGHT);
 
 
 
