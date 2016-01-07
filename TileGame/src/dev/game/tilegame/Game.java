@@ -12,6 +12,7 @@ import dev.game.tilegame.display.Display;
 import dev.game.tilegame.gfx.Assets;
 import dev.game.tilegame.gfx.ImageLoader;
 import dev.game.tilegame.gfx.SpriteSheet;
+import dev.game.tilegame.input.KeyManager;
 import dev.game.tilegame.states.GameState;
 import dev.game.tilegame.states.MenuState;
 import dev.game.tilegame.states.SettingState;
@@ -50,6 +51,8 @@ public class Game implements Runnable {
   private State settingState;
 
 
+  //Input
+  private KeyManager keyManager;
 
   //constructor method
   public Game(String title, int width, int height){
@@ -57,6 +60,7 @@ public class Game implements Runnable {
     this.width = width;
     this.height = height;
     this.title = title;
+    keyManager = new KeyManager();
 
 
   }
@@ -64,19 +68,22 @@ public class Game implements Runnable {
   private void init(){
     //Create a display when we create a new instance of Game
     display = new Display(title,width,height);
+    display.getFrame().addKeyListener(keyManager);
 
     //initialize assets
     Assets.init();
 
-    gameState = new GameState();
-    menuState = new MenuState();
-    settingState = new SettingState();
+    gameState = new GameState(this);
+    menuState = new MenuState(this);
+    settingState = new SettingState(this);
 
     State.setState(gameState);
   }
 
   //update everything
   private void tick(){
+    keyManager.tick();
+
     //if a state exists
     if(State.getState() != null){
      State.getState().tick();
@@ -157,6 +164,12 @@ public class Game implements Runnable {
 
     stop();
   }
+
+
+  public KeyManager getKeyManager(){
+    return keyManager;
+  }
+
 
   //start the thread
   public synchronized void start(){
