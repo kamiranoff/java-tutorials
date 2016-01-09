@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import dev.game.tilegame.display.Display;
 import dev.game.tilegame.gfx.Assets;
+import dev.game.tilegame.gfx.GameCamera;
 import dev.game.tilegame.gfx.ImageLoader;
 import dev.game.tilegame.gfx.SpriteSheet;
 import dev.game.tilegame.input.KeyManager;
@@ -31,7 +32,7 @@ public class Game implements Runnable {
 
   private Display display;
 
-  public int width,height;
+  private int width,height;
   public String title;
 
   private boolean running = false;
@@ -54,6 +55,10 @@ public class Game implements Runnable {
   //Input
   private KeyManager keyManager;
 
+
+  //Camera
+  private GameCamera gameCamera;
+
   //constructor method
   public Game(String title, int width, int height){
 
@@ -72,6 +77,8 @@ public class Game implements Runnable {
 
     //initialize assets
     Assets.init();
+
+    gameCamera = new GameCamera(this,0,0);
 
     gameState = new GameState(this);
     menuState = new MenuState(this);
@@ -170,6 +177,17 @@ public class Game implements Runnable {
     return keyManager;
   }
 
+  public GameCamera getGameCamera(){
+    return gameCamera;
+  }
+
+  public int getWidth(){
+    return width;
+  }
+
+  public int getHeight(){
+    return height;
+  }
 
   //start the thread
   public synchronized void start(){
