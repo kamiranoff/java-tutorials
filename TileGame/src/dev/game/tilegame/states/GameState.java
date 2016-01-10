@@ -5,10 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 
-import dev.game.tilegame.Game;
-import dev.game.tilegame.entities.creatures.Player;
-import dev.game.tilegame.gfx.Assets;
-import dev.game.tilegame.tiles.Tile;
+import dev.game.tilegame.Handler;
+
 import dev.game.tilegame.worlds.World;
 
 /**
@@ -18,17 +16,25 @@ public class GameState extends State {
 
   final static Logger logger = LoggerFactory.getLogger(GameState.class);
 
-  private Player player;
   private World world;
 
-  public GameState(Game game){
 
-    super(game);
+  public GameState(Handler handler){
+
+    super(handler);
+
+
 
     logger.debug("Working Directory = " + System.getProperty("user.dir"));
 
-    player = new Player(game,100,100);
-    world = new World(game, "src/resources/worlds/world1.txt");
+    world = new World(handler, "src/resources/worlds/world1.txt");
+
+    logger.info("Game width in tiles: " + world.getWidth());
+    logger.info("Game height in tiles: " + world.getHeight());
+
+
+
+    handler.setWorld(world);
 
 
   }
@@ -36,13 +42,11 @@ public class GameState extends State {
   @Override
   public void tick() {
     world.tick();
-    player.tick();
   }
 
   @Override
   public void render(Graphics g) {
     world.render(g);
-    player.render(g);
 
   }
 }

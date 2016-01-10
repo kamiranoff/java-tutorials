@@ -2,7 +2,7 @@ package dev.game.tilegame.states;
 
 import java.awt.*;
 
-import dev.game.tilegame.Game;
+import dev.game.tilegame.Handler;
 
 /**
  * Created by kevin on 07/01/16.
@@ -21,10 +21,11 @@ public abstract class State {
 
 
   //CLASS
-  protected Game game;
+  protected Handler handler;
 
-  public State(Game game){
-    this.game = game;
+  public State(Handler handler){
+
+    this.handler = handler;
   }
 
   public abstract void tick();

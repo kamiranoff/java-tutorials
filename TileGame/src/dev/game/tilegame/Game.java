@@ -6,13 +6,12 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
+
 
 import dev.game.tilegame.display.Display;
 import dev.game.tilegame.gfx.Assets;
 import dev.game.tilegame.gfx.GameCamera;
-import dev.game.tilegame.gfx.ImageLoader;
-import dev.game.tilegame.gfx.SpriteSheet;
+
 import dev.game.tilegame.input.KeyManager;
 import dev.game.tilegame.states.GameState;
 import dev.game.tilegame.states.MenuState;
@@ -59,6 +58,9 @@ public class Game implements Runnable {
   //Camera
   private GameCamera gameCamera;
 
+  //Handler
+  private Handler handler;
+
   //constructor method
   public Game(String title, int width, int height){
 
@@ -78,11 +80,14 @@ public class Game implements Runnable {
     //initialize assets
     Assets.init();
 
-    gameCamera = new GameCamera(this,0,0);
+    handler = new Handler(this);
 
-    gameState = new GameState(this);
-    menuState = new MenuState(this);
-    settingState = new SettingState(this);
+    gameCamera = new GameCamera(handler,0,0);
+
+
+    gameState = new GameState(handler);
+    menuState = new MenuState(handler);
+    settingState = new SettingState(handler);
 
     State.setState(gameState);
   }
@@ -144,6 +149,8 @@ public class Game implements Runnable {
     long lastTime = System.nanoTime(); //amount of time in nano seconds;
     long timer = 0;
     int ticks = 0;
+    long delay = 5_000_000_000L;
+    int delayDivider = 5;
 
 
     while (running){
@@ -162,8 +169,8 @@ public class Game implements Runnable {
 
       }
 
-      if(timer >= 1_000_000_000){
-        logger.info("Ticks and Frames: " + ticks);
+      if(timer >= delay){
+        logger.info("Ticks and Frames: " + ticks / delayDivider);
         ticks = 0;
         timer =0;
       }

@@ -3,6 +3,7 @@ package dev.game.tilegame.states;
 import java.awt.*;
 
 import dev.game.tilegame.Game;
+import dev.game.tilegame.Handler;
 
 /**
  * Created by kevin on 07/01/16.
@@ -10,8 +11,8 @@ import dev.game.tilegame.Game;
 public class MenuState extends State {
 
 
-  public MenuState(Game game) {
-    super(game);
+  public MenuState(Handler handler) {
+    super(handler);
   }
 
   @Override
