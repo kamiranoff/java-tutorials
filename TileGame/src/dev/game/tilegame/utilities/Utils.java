@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 
 /**
  * Created by kevin on 09/01/16.
@@ -20,7 +23,8 @@ public class Utils {
 
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader(path));
+      InputStream is = Utils.class.getResourceAsStream(path);
+      BufferedReader br = new BufferedReader(new InputStreamReader(is));
       String line;
       while ((line = br.readLine()) != null){
         builder.append(line +"\n");

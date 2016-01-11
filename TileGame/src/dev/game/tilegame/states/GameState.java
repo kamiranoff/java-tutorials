@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import dev.game.tilegame.Handler;
 
@@ -23,11 +25,11 @@ public class GameState extends State {
 
     super(handler);
 
-
+    String worldFile = "/resources/worlds/world1.txt";
 
     logger.debug("Working Directory = " + System.getProperty("user.dir"));
 
-    world = new World(handler, "src/resources/worlds/world1.txt");
+    world = new World(handler, worldFile);
 
     logger.info("Game width in tiles: " + world.getWidth());
     logger.info("Game height in tiles: " + world.getHeight());
