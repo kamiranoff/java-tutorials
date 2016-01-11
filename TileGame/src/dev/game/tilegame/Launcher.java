@@ -17,7 +17,7 @@ public class Launcher {
   public static void main(String[] args){
     logger.info("Main method - Entry point");
 
-    Game game = new Game("Psylocke in action!",1280,1000);
+    Game game = new Game("Lost in the Jungle!",1280,1000);
     game.start();
 
   }
