@@ -2,6 +2,7 @@ package dev.game.tilegame;
 
 import dev.game.tilegame.gfx.GameCamera;
 import dev.game.tilegame.input.KeyManager;
+import dev.game.tilegame.input.MouseManager;
 import dev.game.tilegame.worlds.World;
 
 /**
@@ -19,6 +20,8 @@ public class Handler {
   public KeyManager getKeyManager(){
     return game.getKeyManager();
   }
+
+  public MouseManager getMouseManager(){return game.getMouseManager();}
 
   public GameCamera getGameCamera(){
     return game.getGameCamera();

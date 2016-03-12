@@ -13,6 +13,7 @@ import dev.game.tilegame.gfx.Assets;
 import dev.game.tilegame.gfx.GameCamera;
 
 import dev.game.tilegame.input.KeyManager;
+import dev.game.tilegame.input.MouseManager;
 import dev.game.tilegame.states.GameState;
 import dev.game.tilegame.states.MenuState;
 import dev.game.tilegame.states.SettingState;
@@ -46,13 +47,14 @@ public class Game implements Runnable {
   private Graphics g;
 
   //States
-  private State gameState;
-  private State menuState;
+  public State gameState;
+  public State menuState;
   private State settingState;
 
 
   //Input
   private KeyManager keyManager;
+  private MouseManager mouseManager;
 
 
   //Camera
@@ -68,6 +70,7 @@ public class Game implements Runnable {
     this.height = height;
     this.title = title;
     keyManager = new KeyManager();
+    mouseManager = new MouseManager();
 
 
   }
@@ -75,7 +78,15 @@ public class Game implements Runnable {
   private void init(){
     //Create a display when we create a new instance of Game
     display = new Display(title,width,height);
+
     display.getFrame().addKeyListener(keyManager);
+
+    //mouse
+    //adds mouse listeners to Frame and canvas
+    display.getFrame().addMouseListener(mouseManager);
+    display.getFrame().addMouseMotionListener(mouseManager);
+    display.getCanvas().addMouseListener(mouseManager);
+    display.getCanvas().addMouseMotionListener(mouseManager);
 
     //initialize assets
     Assets.init();
@@ -89,7 +100,7 @@ public class Game implements Runnable {
     menuState = new MenuState(handler);
     settingState = new SettingState(handler);
 
-    State.setState(gameState);
+    State.setState(menuState);
   }
 
   //update everything
@@ -179,23 +190,6 @@ public class Game implements Runnable {
     stop();
   }
 
-
-  public KeyManager getKeyManager(){
-    return keyManager;
-  }
-
-  public GameCamera getGameCamera(){
-    return gameCamera;
-  }
-
-  public int getWidth(){
-    return width;
-  }
-
-  public int getHeight(){
-    return height;
-  }
-
   //start the thread
   public synchronized void start(){
 
@@ -221,5 +215,23 @@ public class Game implements Runnable {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  public KeyManager getKeyManager(){
+    return keyManager;
+  }
+
+  public MouseManager getMouseManager(){return mouseManager;}
+
+  public GameCamera getGameCamera(){
+    return gameCamera;
+  }
+
+  public int getWidth(){
+    return width;
+  }
+
+  public int getHeight(){
+    return height;
   }
 }
